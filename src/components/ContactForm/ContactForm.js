@@ -4,22 +4,22 @@ import { nanoid } from 'nanoid';
 import { addContacts } from 'redux/contacts';
 import css from './ContactForm.module.css';
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const dispatch = useDispatch();
   const items = useSelector(state => state.contacts.items);
 
   const handleChangeName = e => setName(e.currentTarget.value);
 
-  const handleChangeNumber = e => setNumber(e.currentTarget.value);
+  const handleChangePhone = e => setPhone(e.currentTarget.value);
 
   const handleSubmit = e => {
     e.preventDefault();
     const data = {
       id: nanoid(),
       name,
-      number,
+      phone,
     };
     const sameName = items.map(item => item.name).includes(data.name);
     if (sameName) {
@@ -27,7 +27,7 @@ export default function ContactForm({ onSubmit }) {
     }
     dispatch(addContacts(data));
     setName('');
-    setNumber('');
+    setPhone('');
   };
   return (
     <form className={css.form} onSubmit={handleSubmit}>
@@ -45,9 +45,9 @@ export default function ContactForm({ onSubmit }) {
       <label htmlFor={nanoid()}>Telefon</label>
       <input
         type="tel"
-        name="number"
-        value={number}
-        onChange={handleChangeNumber}
+        name="phone"
+        value={phone}
+        onChange={handleChangePhone}
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
