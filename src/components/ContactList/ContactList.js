@@ -21,7 +21,7 @@ export default function ContactList() {
   const handleDeleteContact = itemId => dispatch(deleteContact(itemId));
   useEffect(() => {
     dispatch(fetchItems);
-  });
+  }, []);
   return (
     <ul className={css.list}>
       {filtredContacts.map(({ id, name, phone }) => (
